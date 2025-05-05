@@ -1,0 +1,52 @@
+/* styles.css */
+body {
+    background-color: #FFF; /* Warna latar belakang putih */
+    color: #333; /* Warna teks default */
+    font-family: Arial, sans-serif; /* Font yang digunakan */
+}
+
+h1 {
+    color: #ff5733; /* Merah cerah */
+}
+
+h2 {
+    color: #33fffff57; /* Hijau cerah */
+}
+
+h3 {
+    color: #3357ff; /* Biru cerah */
+}
+
+h4 {
+    color: #800080; /* Pink cerah */
+}
+
+h5 {
+    color: #0000FF; /* Kuning cerah */
+}
+
+h6 {
+    color: #33ffff; /* Cyan */
+}
+
+a {
+    color: #ff1493; /* Warna tautan pink cerah */
+}
+
+a:hover {
+    color: #ff69b4; /* Warna tautan saat hover */
+}
+
+p {
+    line-height: 1.6; /* Jarak antar baris */
+}
+
+ul {
+    list-style-type: none; /* Menghilangkan bullet list */
+}
+
+li {
+    padding: 5px; /* Jarak antar item list */
+    background-color: #f0f0f0; /* Warna latar belakang item list */
+    border-radius: 5px; /* Sudut melengkung */
+}

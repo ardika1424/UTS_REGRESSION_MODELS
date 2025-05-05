@@ -1,0 +1,64 @@
+---
+title: "UTS REGRESSION MODELS"
+author: "ardika alaudin arsa - A3202300038"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    css: styles.css
+    theme: flatly
+    higlight: zenburn
+    toc: true
+    toc_float:
+      collapsed: true
+    df_print: paged
+bibliography: references.bib
+---
+
+```{r}
+library(ggplot2)
+library(corrplot)
+```
+
+```{r}
+library(readr)
+HeatingOil <- read.csv("HeatingOil.csv")
+HeatingOil_Marketing <- read.csv("HeatingOil-Marketing.csv")
+```
+
+```{r}
+data_corr <- HeatingOil[, c("Heating_Oil", "Insulation", "Temperature", "Num_Occupants", "Avg_Age", "Home_Size")]
+cor_matrix <- cor(data_corr, use = "complete.obs")
+print(round(cor_matrix, 2))
+```
+
+```{r}
+corrplot(cor_matrix, method = "color", type = "upper", tl.col = "black", tl.cex = 0.8)
+```
+
+```{r}
+ggplot(HeatingOil, aes(x = Heating_Oil, y = Avg_Age, color = Heating_Oil)) +
+  geom_point(size = 3) +
+  scale_color_gradient(low = "blue", high = "red") +
+  theme_minimal() +
+  labs(title = "Heating Oil vs Avg Age of Occupants", x = "Heating Oil Consumption", y = "Average Age")
+```
+
+```{r}
+ggplot(HeatingOil, aes(x = Temperature, y = Insulation, color = Heating_Oil)) +
+  geom_point(size = 3) +
+  scale_color_gradient(low = "green", high = "red") +
+  theme_minimal() +
+  labs(title = "Temperature vs Insulation (Colored by Heating Oil Consumption)", x = "Average Outdoor Temperature (F)", y = "Insulation Score")
+```
+
+```{r}
+model <- lm(Heating_Oil ~ Insulation + Temperature + Num_Occupants + Avg_Age + Home_Size, data = HeatingOil)
+summary(model)
+```
+
+```{r}
+model_loaded <- readRDS("model_heating_oil.rds")
+HeatingOil_Marketing$Predicted_Heating_Oil <- predict(model_loaded, newdata = HeatingOil_Marketing)
+head(HeatingOil_Marketing)
+```
+
