@@ -14,51 +14,152 @@ output:
 bibliography: references.bib
 ---
 
+# JAWABAN SOAL 1
+
+## 1. Kita harus menulis user library yang di butuhkan pada project ini
 ```{r}
 library(ggplot2)
 library(corrplot)
-```
-
-```{r}
 library(readr)
-HeatingOil <- read.csv("HeatingOil.csv")
-HeatingOil_Marketing <- read.csv("HeatingOil-Marketing.csv")
+library(reshape2)
+library(dplyr)
 ```
 
-```{r}
-data_corr <- HeatingOil[, c("Heating_Oil", "Insulation", "Temperature", "Num_Occupants", "Avg_Age", "Home_Size")]
-cor_matrix <- cor(data_corr, use = "complete.obs")
-print(round(cor_matrix, 2))
-```
+## 2. Tujuan Analisis
+
+Tujuan dari analisis ini adalah untuk memahami hubungan antar variabel yang berhubungan dengan konsumsi minyak pemanas (Heating_Oil). Dengan menganalisis data yang tersedia
+
+## 3. Sumber Data
+
+1. HeatingOil.csv: File ini berisi informasi tentang konsumsi minyak pemanas dan variabel terkait lainnya, seperti isolasi, suhu, jumlah penghuni, usia rata-rata, dan ukuran rumah.
+2. HeatingOil-Marketing.csv: File ini berisi data tambahan yang mungkin relevan untuk analisis pemasaran dan strategi distribusi.
 
 ```{r}
-corrplot(cor_matrix, method = "color", type = "upper", tl.col = "black", tl.cex = 0.8)
+data <- read.csv("HeatingOil.csv")
+data_subset <- data[, c("Heating_Oil", "Insulation", "Temperature", "Num_Occupants", "Avg_Age", "Home_Size")]
+cor_matrix <- cor(data_subset)
+print(cor_matrix)
 ```
 
+## 4. contoh Correlation Matrix
+
 ```{r}
-ggplot(HeatingOil, aes(x = Heating_Oil, y = Avg_Age, color = Heating_Oil)) +
-  geom_point(size = 3) +
+corrplot(cor_matrix, method = "color", type = "full", tl.col = "black", tl.srt = 45)
+```
+
+### penjelasan hasil correlation matrix
+1. Insulation
+Korelasi: Positif (misalnya, 0.65)
+2. Temperature
+Korelasi: Negatif (misalnya, -0.70)
+3. Num_Occupants
+Korelasi: Positif (misalnya, 0.45)
+4. Avg_Age
+Korelasi: Negatif (misalnya, -0.30)
+5. Home_Size
+Korelasi: Positif (misalnya, 0.55)
+
+## 5. Scatter Plot 1
+
+```{r}
+ggplot(data, aes(x = Heating_Oil, y = Avg_Age, color = Heating_Oil)) +
+  geom_point() +
   scale_color_gradient(low = "blue", high = "red") +
-  theme_minimal() +
-  labs(title = "Heating Oil vs Avg Age of Occupants", x = "Heating Oil Consumption", y = "Average Age")
+  labs(title = "Scatter Plot: Heating Oil vs Average Age",
+       x = "Heating Oil Consumption",
+       y = "Average Age of Occupants") +
+  theme_minimal()
 ```
 
+### Hasil dan Penjelasan
+1. Hasil.
+Scatter Plot 1 menggambarkan hubungan antara konsumsi minyak pemanas (Heating_Oil) dan usia rata-rata 
+penghuni (Avg_Age). Berikut adalah beberapa poin penting yang dapat diambil dari visualisasi ini
+
+2. Penjelasan.
+- Sumbu X: Menunjukkan konsumsi minyak pemanas dalam satuan yang sesuai (misalnya, liter atau galon).
+- Sumbu Y: Menunjukkan usia rata-rata penghuni dalam tahun.
+- Warna Titik: Titik pada plot diwarnai berdasarkan tingkat konsumsi minyak pemanas, dengan gradasi warna   dari biru (konsumsi rendah) hingga merah (konsumsi tinggi).
+
+## 6. Scatter Plot 2
+
 ```{r}
-ggplot(HeatingOil, aes(x = Temperature, y = Insulation, color = Heating_Oil)) +
-  geom_point(size = 3) +
-  scale_color_gradient(low = "green", high = "red") +
-  theme_minimal() +
-  labs(title = "Temperature vs Insulation (Colored by Heating Oil Consumption)", x = "Average Outdoor Temperature (F)", y = "Insulation Score")
+ggplot(data, aes(x = Temperature, y = Insulation, color = Heating_Oil)) +
+  geom_point() +
+  scale_color_gradient(low = "blue", high = "red") +
+  labs(title = "Scatter Plot: Temperature vs Insulation",
+       x = "Temperature",
+       y = "Insulation Score") +
+  theme_minimal()
 ```
+
+### Hasil dan Penjelasan
+1. Hasil.
+- Pola yang terlihat dapat menunjukkan apakah suhu dan kualitas insulasi berpengaruh terhadap konsumsi minyak pemanas.
+
+2. Penjelasan.
+- Kode ini membuat scatter plot dengan Temperature di sumbu X dan Insulation di sumbu Y.
+- Warna titik menunjukkan intensitas konsumsi minyak pemanas.
+
+## 7. Rekomendasi untuk Sarah
+
+1. Target Pemasaran: Fokus pada rumah dengan insulasi rendah dan penghuni yang lebih banyak, karena mereka cenderung menggunakan lebih banyak minyak pemanas.
+
+2. Promosi: Tawarkan diskon atau promosi untuk rumah dengan suhu rendah dan insulasi buruk, untuk mendorong mereka membeli lebih banyak minyak pemanas.
+
+3. Pendekatan Komunikasi: Sesuaikan komunikasi dengan pelanggan berdasarkan usia. Misalnya, untuk penghuni yang lebih tua, gunakan pendekatan yang lebih personal dan informatif.
+
+
+# JAWABAN SOAL 2
+
+
+
+## Proses yang Harus Dilakukan oleh Sarah
+
+### 1. Membaca Dataset: HeatingOil.csv
+Sarah akan memulai dengan membaca dataset yang berisi data historis konsumsi minyak pemanas.
+
+```{r}
+HeatingOil <- read.csv("HeatingOil.csv")
+```
+
+### 2. Membuat Model Regresi untuk Memprediksi Konsumsi Minyak (Heating_Oil)
+Sarah akan menggunakan model regresi linier untuk memprediksi konsumsi minyak berdasarkan variabel-variabel yang relevan.
 
 ```{r}
 model <- lm(Heating_Oil ~ Insulation + Temperature + Num_Occupants + Avg_Age + Home_Size, data = HeatingOil)
 summary(model)
 ```
 
+### 3. Menyimpan Model
+Setelah model dibuat, Sarah akan menyimpan model tersebut ke dalam file RData agar dapat digunakan oleh para marketer tanpa harus membagikan dataset asli.
+
 ```{r}
-model_loaded <- readRDS("model_heating_oil.rds")
-HeatingOil_Marketing$Predicted_Heating_Oil <- predict(model_loaded, newdata = HeatingOil_Marketing)
-head(HeatingOil_Marketing)
+save(model, file = "HeatingOil_Model.RData")
+```
+
+## Proses yang Harus Dilakukan oleh Marketer
+
+### 1. Membaca Model yang Sudah Disimpan oleh Sarah
+Para marketer akan memuat model yang telah disimpan oleh Sarah.
+
+```{r}
+load("HeatingOil_Model.RData")
+```
+
+### 2. Membaca Data Calon Pelanggan Baru: HeatingOil-Marketing.csv
+Marketer akan membaca data calon pelanggan baru yang telah di-approach.
+
+```{r}
+HeatingOil_Marketing <- read.csv("HeatingOil-Marketing.csv")
+```
+
+### 3. Menerapkan Model ke Data Calon Pelanggan Baru untuk Memprediksi Kebutuhan Minyak Pemanas
+Marketer akan menggunakan model yang telah dimuat untuk memprediksi kebutuhan minyak pemanas berdasarkan data calon pelanggan baru.
+
+```{r}
+predictions <- predict(model, newdata = HeatingOil_Marketing)
+HeatingOil_Marketing$Predicted_Heating_Oil <- predictions
+print(head(HeatingOil_Marketing))
 ```
 
