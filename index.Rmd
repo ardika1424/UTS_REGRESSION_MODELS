@@ -167,19 +167,12 @@ print(head(HeatingOil_Marketing))
 
 1. Analisis Hubungan Variabel:
 
-Melalui analisis matriks korelasi dan visualisasi scatter plot, ditemukan bahwa beberapa variabel memiliki hubungan signifikan dengan konsumsi minyak pemanas (Heating_Oil). Variabel-variabel tersebut meliputi:
+Variabel Insulation, Num_Occupants, dan Home_Size memiliki korelasi positif dengan konsumsi minyak pemanas (Heating_Oil), sedangkan Temperature dan Avg_Age memiliki korelasi negatif.
 
-- Insulation: Memiliki korelasi positif yang signifikan, menunjukkan bahwa rumah dengan isolasi yang lebih baik cenderung memiliki konsumsi minyak pemanas yang lebih tinggi.
-- Temperature: Memiliki korelasi negatif yang signifikan, menunjukkan bahwa semakin tinggi suhu, semakin rendah konsumsi minyak pemanas.
-- Num_Occupants: Memiliki korelasi positif yang signifikan, menunjukkan bahwa rumah dengan lebih banyak penghuni cenderung memiliki konsumsi minyak pemanas yang lebih tinggi.
-- Avg_Age: Memiliki korelasi negatif yang signifikan, menunjukkan bahwa rumah dengan penghuni yang lebih tua cenderung memiliki konsumsi minyak pemanas yang lebih rendah.
-- Home_Size: Memiliki korelasi positif yang signifikan, menunjukkan bahwa rumah yang lebih besar cenderung memiliki konsumsi minyak pemanas yang lebih tinggi.
+2. Model Prediksi:
 
-2. Pembuatan Model Prediksi:
-
-- Sarah berhasil membuat model regresi linier untuk memprediksi konsumsi minyak pemanas berdasarkan variabel-variabel yang relevan. Model ini memungkinkan para marketer untuk memperkirakan kebutuhan minyak pemanas dari calon pelanggan baru tanpa harus mengakses data sensitif.
-- Proses ini melibatkan pembacaan dataset, pembuatan model, penyimpanan model, dan distribusi model kepada para marketer. Dengan cara ini, data tetap aman, dan para marketer dapat menggunakan model untuk membuat estimasi yang akurat.
+Sarah membuat dan menyimpan model regresi linier untuk memprediksi konsumsi minyak pemanas, yang didistribusikan kepada para marketer tanpa membagikan data sensitif.
 
 3. Implementasi oleh Marketer:
 
-- Para marketer dapat dengan mudah memuat model yang telah disimpan, membaca data calon pelanggan baru, dan menerapkan model untuk memprediksi kebutuhan minyak pemanas. Ini memberikan mereka alat yang diperlukan untuk melakukan pendekatan yang lebih efektif kepada pelanggan baru.
+Marketer dapat menggunakan model untuk memprediksi kebutuhan minyak pemanas dari calon pelanggan baru, memungkinkan pendekatan yang lebih efektif.
